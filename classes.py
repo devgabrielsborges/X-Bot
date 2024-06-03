@@ -2,6 +2,7 @@ import pytz
 import os.path
 import requests
 import json
+import tweepy
 
 from datetime import datetime
 from google.auth.transport.requests import Request
@@ -11,7 +12,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from twilio.rest import Client
 
-
+from dotenv import load_dotenv
 class Message:
 
     @staticmethod   # função para obter horário
@@ -75,6 +76,7 @@ class Message:
                 .get(spreadsheetId=self.SAMPLE_SPREADSHEET_ID, range=self.SAMPLE_RANGE_NAME)
                 .execute()
             )
+            print(result)
             valores = result['values'][0]
             print(valores)
             self.produto = valores[0]
@@ -85,7 +87,7 @@ class Message:
             print(err)
     
     @base_struct
-    def post_info(self, values_add : list):
+    def post_info(self, values_add : list, column='E'):
         try:
             service = build("sheets", "v4", credentials=self.creds)
             # Call the Sheets API
@@ -95,7 +97,7 @@ class Message:
             values_add = [values_add]
             result = (
                 sheet.values()
-                .update(spreadsheetId=self.SAMPLE_SPREADSHEET_ID, range=f'E{self.actual_place}', valueInputOption="USER_ENTERED", body={'values': values_add})
+                .update(spreadsheetId=self.SAMPLE_SPREADSHEET_ID, range=f'{column}{self.actual_place}', valueInputOption="USER_ENTERED", body={'values': values_add})
                 .execute()
             )
             print(result)
@@ -146,5 +148,3 @@ class TwilioAPI:
         )
         self.sid = message.sid
         print(message.sid)
-class Xbot:
-    pass
