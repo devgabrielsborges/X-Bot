@@ -109,6 +109,8 @@ class Message:
     @property
     def info(self):
         return [self.produto, self.valor, self.link]
+
+
 class FirebaseAPI:
     
     def __init__(self, endpoint : str):
@@ -134,6 +136,8 @@ class FirebaseAPI:
             request = requests.patch(f'{self.endpoint}/{page}/.json', data=json.dumps(info))
         elif info != '':
             request = requests.patch(f'{self.endpoint}/.json', data=json.dumps(info))
+
+
 class TwilioAPI:
     def __init__(self, account_sid, auth_token):
         self.account_sid = account_sid
