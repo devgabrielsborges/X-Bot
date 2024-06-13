@@ -11,6 +11,8 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from twilio.rest import Client
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_groq import ChatGroq
 
 from dotenv import load_dotenv
 class Message:
@@ -152,3 +154,19 @@ class TwilioAPI:
         )
         self.sid = message.sid
         print(message.sid)
+
+class GroqCloud:
+    def __init__(self, job, criativity=0, model="llama3-8b-8192"):
+        self.job = job    # informações prévias para o modelo
+        self.criativity = criativity   # temperature
+        self.model = model   # tipo de modelo
+        self.prompt = ChatPromptTemplate.from_messages(
+            [("system", f"{self.job}"), ("human", "{text}")]
+        )
+        self.chat = ChatGroq(temperature=self.criativity, model_name=f"{self.model}")
+    
+    def request(self, msg):
+        self.chain = self.prompt | self.chat   # conexão
+        self.response = self.chain.invoke({"text": f"{msg}"})   # enviando requisicao
+        
+        return self.response.content
