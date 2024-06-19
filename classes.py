@@ -53,11 +53,11 @@ class Message:
                     creds.refresh(Request())
                 else:
                     flow = InstalledAppFlow.from_client_secrets_file(
-                    "credentials.json", SCOPES
+                    r"C:\Users\gsbex\development\xbot\X-Bot\credentials.json", SCOPES
                     )
                 creds = flow.run_local_server(port=0)
                 # Save the credentials for the next run
-                with open("token.json", "w") as token:
+                with open(r"C:\Users\gsbex\development\xbot\token.json", "w") as token:
                     token.write(creds.to_json())
             self.creds = creds
             self.SAMPLE_SPREADSHEET_ID = SAMPLE_SPREADSHEET_ID
