@@ -8,7 +8,7 @@ page = 'actual_index'
 index = int(db.get_data(page))   # armazena índice atual
 print(f'Index: {index}\n')
 
-wb = SheetXlsx(r"X-Bot\Projeto-X-Bot", r"X-Bot\Projeto-X-Bot.xlsx", index)
+wb = SheetXlsx(r"Projeto-X-Bot", r"Projeto-X-Bot.xlsx", index)
 wb.get_info()   # busca informações da linha a partir do índice
 db.post_data('/Postagens/Horarios', {f'{index}':str(wb.date)})
 print(wb.date)

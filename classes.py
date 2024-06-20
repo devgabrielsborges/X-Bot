@@ -1,8 +1,6 @@
 import pytz
-import os.path
 import requests
 import json
-import tweepy
 
 from datetime import datetime
 from openpyxl import load_workbook
