@@ -77,7 +77,7 @@ class FirebaseAPI:
         """
         self.endpoint = endpoint
 
-    def get_data(self, *page: str) -> dict:
+    def get_data(self, page: str = '') -> dict:
         """get_data getter method for data in Realtime Database
 
         Args:
