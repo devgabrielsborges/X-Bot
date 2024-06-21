@@ -1,3 +1,5 @@
+"""Classes & methods for main script"""
+
 import json
 from datetime import datetime
 import pytz
@@ -37,6 +39,11 @@ class SheetXlsx:
         self.info = None
 
     def get_info(self) -> list:
+        """get_info -> Get information from cells
+
+        Returns:
+            list: List with information about the product
+        """
         self.produto = self.worksheet[f"A{self.actual_place}"].value
         self.valor = self.worksheet[f"B{self.actual_place}"].value
         self.link = self.worksheet[f"C{self.actual_place}"].value
