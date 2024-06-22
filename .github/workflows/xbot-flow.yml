@@ -39,6 +39,16 @@ jobs:
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
     - name: Run main
       run: |
+        echo "twilio_sid: $twilio_sid"
+        echo "twilio_token: $twilio_token"
+        echo "number_from: $number_from"
+        echo "number_to: $number_to"
+        echo "x_bearertoken: $x_bearertoken"
+        echo "x_apikey: $x_apikey"
+        echo "x_apisecret: $x_apisecret"
+        echo "x_token: $x_token"
+        echo "x_tokensecret: $x_tokensecret"
+        echo "groq_api_key: $groq_api_key"
         python main.py
         
     - name: Commit and Push
