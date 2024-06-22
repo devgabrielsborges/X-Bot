@@ -25,7 +25,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-    - name: Run main
+    - name: Set env
       env:
         twilio_sid: ${{ secrets.TWILIO_SID }}
         twilio_token: ${{ secrets.TWILIO_TOKEN }}
@@ -37,6 +37,7 @@ jobs:
         x_token: ${{ secrets.X_TOKEN }}
         x_tokensecret: ${{ secrets.X_TOKENSECRET }}
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+    - name: Run main
       run: |
         python main.py
         
