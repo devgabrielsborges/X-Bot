@@ -25,6 +25,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      env:
+        twilio_sid: ${{ secrets.TWILIO_SID }}
+        twilio_token: ${{ secrets.TWILIO_TOKEN }}
+        number_from: ${{ secrets.NUMBER_FROM }}
+        number_to: ${{ secrets.NUMBER_TO }}
+        x_bearertoken: ${{ secrets.X_BEARERTOKEN }}
+        x_apikey: ${{ secrets.X_APIKEY }}
+        x_apisecret: ${{ secrets.X_APISECRET }}
+        x_token: ${{ secrets.X_TOKEN }}
+        x_tokensecret: ${{ secrets.X_TOKENSECRET }}
+        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
     - name: Run main
       run: |
         echo "twilio_sid: $twilio_sid"
@@ -38,17 +49,6 @@ jobs:
         echo "x_tokensecret: $x_tokensecret"
         echo "groq_api_key: $groq_api_key"
         python main.py
-      env:
-        twilio_sid: ${{ secrets.TWILIO_SID }}
-        twilio_token: ${{ secrets.TWILIO_TOKEN }}
-        number_from: ${{ secrets.NUMBER_FROM }}
-        number_to: ${{ secrets.NUMBER_TO }}
-        x_bearertoken: ${{ secrets.X_BEARERTOKEN }}
-        x_apikey: ${{ secrets.X_APIKEY }}
-        x_apisecret: ${{ secrets.X_APISECRET }}
-        x_token: ${{ secrets.X_TOKEN }}
-        x_tokensecret: ${{ secrets.X_TOKENSECRET }}
-        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         
     - name: Commit and Push
       uses: stefanzweifel/git-auto-commit-action@v5
