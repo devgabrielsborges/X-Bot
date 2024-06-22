@@ -26,8 +26,6 @@ jobs:
         pip install flake8 pytest
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Run main
-      run: |
-        python main.py
       env:
         twilio_sid: ${{ secrets.TWILIO_SID }}
         twilio_token: ${{ secrets.TWILIO_TOKEN }}
@@ -39,6 +37,8 @@ jobs:
         x_token: ${{ secrets.X_TOKEN }}
         x_tokensecret: ${{ secrets.X_TOKENSECRET }}
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+      run: |
+        python main.py
         
     - name: Commit and Push
       uses: stefanzweifel/git-auto-commit-action@v5
