@@ -2,8 +2,8 @@ name: Xbot Flow
 
 on:
   schedule:
-    - cron: '42 08 * * *'
-    - cron: '46 11 * * *'
+    - cron: "42 08 * * *"
+    - cron: "46 11 * * *"
   workflow_dispatch:
 
 permissions:
@@ -11,44 +11,35 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    environment: xbot-env
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install flake8 pytest
-        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      env:
-        twilio_sid: ${{ secrets.TWILIO_SID }}
-        twilio_token: ${{ secrets.TWILIO_TOKEN }}
-        number_from: ${{ secrets.NUMBER_FROM }}
-        number_to: ${{ secrets.NUMBER_TO }}
-        x_bearertoken: ${{ secrets.X_BEARERTOKEN }}
-        x_apikey: ${{ secrets.X_APIKEY }}
-        x_apisecret: ${{ secrets.X_APISECRET }}
-        x_token: ${{ secrets.X_TOKEN }}
-        x_tokensecret: ${{ secrets.X_TOKENSECRET }}
-        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-    - name: Run main
-      run: |
-        echo "twilio_sid: $twilio_sid"
-        echo "twilio_token: $twilio_token"
-        echo "number_from: $number_from"
-        echo "number_to: $number_to"
-        echo "x_bearertoken: $x_bearertoken"
-        echo "x_apikey: $x_apikey"
-        echo "x_apisecret: $x_apisecret"
-        echo "x_token: $x_token"
-        echo "x_tokensecret: $x_tokensecret"
-        echo "groq_api_key: $groq_api_key"
-        python main.py
-        
-    - name: Commit and Push
-      uses: stefanzweifel/git-auto-commit-action@v5
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Run main
+        env:
+          TWILIO_SID: ${{ secrets.TWILIO_SID }}
+          TWILIO_TOKEN: ${{ secrets.TWILIO_TOKEN }}
+          NUMBER_FROM: ${{ secrets.NUMBER_FROM }}
+          NUMBER_TO: ${{ secrets.NUMBER_TO }}
+          X_BEARERTOKEN: ${{ secrets.X_BEARERTOKEN }}
+          X_APIKEY: ${{ secrets.X_APIKEY }}
+          X_APISECRET: ${{ secrets.X_APISECRET }}
+          X_TOKEN: ${{ secrets.X_TOKEN }}
+          X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          python main.py
+          echo 'OK'
+
+      - name: Commit and Push
+        uses: stefanzweifel/git-auto-commit-action@v5
