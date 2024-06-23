@@ -44,22 +44,22 @@ tweet_body = f"{groq_chat.request(prompt_msg)}\n{wb.link}"
 print(tweet_body)
 
 xbot = tweepy.Client(
-    consumer_key=os.getenv('x_apikey'),
-    consumer_secret=os.getenv('x_apisecret'),
-    access_token=os.getenv('x_token'),
-    access_token_secret=os.getenv('x_tokensecret'),
-    bearer_token=os.getenv('x_bearertoken')
+    consumer_key=os.getenv('X_APIKEY'),
+    consumer_secret=os.getenv('X_APISECRET'),
+    access_token=os.getenv('X_TOKEN'),
+    access_token_secret=os.getenv('X_TOKENSECRET'),
+    bearer_token=os.getenv('X_BEARERTOKEN')
 )
 
 xbot.create_tweet(text=tweet_body)
 
 wb.post_info(['Postado', tweet_body])
 
-new_sms = TwilioAPI(os.getenv('twilio_sid'), os.getenv('twilio_token'))
+new_sms = TwilioAPI(os.getenv('TWILIO_SID'), os.getenv('TWILIO_TOKEN'))
 sms_body = (
     f"Acabei de postar!\nProduto: "
     f"{wb.info[0]}\nValor: {wb.info[1]}\n Link {wb.info[2]}"
 )
 
 db.patch_data(info={'actual_index': index + 1})
-new_sms.send_sms(os.getenv('number_from'), os.getenv('number_to'),  sms_body)
+new_sms.send_sms(os.getenv('NUMBER_FROM'), os.getenv('NUMBER_TO'),  sms_body)
