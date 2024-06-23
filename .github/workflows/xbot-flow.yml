@@ -37,20 +37,9 @@ jobs:
           X_TOKEN: ${{ secrets.X_TOKEN }}
           X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          TESTE: 'TESTE'
         run: |
-          echo "twilio_sid: $TWILIO_SID"
-          echo "twilio_token: $TWILIO_TOKEN"
-          echo "number_from: $NUMBER_FROM"
-          echo "number_to: $NUMBER_TO"
-          echo "x_bearertoken: $X_BEARERTOKEN"
-          echo "x_apikey: $X_APIKEY"
-          echo "x_apisecret: $X_APISECRET"
-          echo "x_token: $X_TOKEN"
-          echo "x_tokensecret: $X_TOKENSECRET"
-          echo "groq_api_key: $GROQ_API_KEY"
-          echo 'TESTE: $TESTE'
           python main.py
+          echo 'OK'
 
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
