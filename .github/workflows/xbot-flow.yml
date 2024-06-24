@@ -2,8 +2,8 @@ name: Xbot Flow
 
 on:
   schedule:
-    - cron: "42 08 * * *"
-    - cron: "46 11 * * *"
+    - cron: "42 11 * * *"
+    - cron: "46 14 * * *"
   workflow_dispatch:
 
 permissions:

@@ -68,6 +68,7 @@ This repository contains a bot that automates posting tweets about promotions, u
 1. Ensure that the initial index is correctly set in Firebase under `actual_index`.
 
 2. Run the main script:
+
    ```sh
    python main.py
    ```

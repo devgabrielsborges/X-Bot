@@ -1,4 +1,9 @@
-"""Classes & methods for main script"""
+"""
+Classes & methods for main script
+
+TODO: Create AuxBot class -> Define methods and propertys
+
+"""
 
 import json
 from datetime import datetime
@@ -12,11 +17,10 @@ from langchain_groq import ChatGroq
 
 
 class SheetXlsx:
-    """ Class for operation with Excel xlsx worksheets
-    """
+    """ Class for operation with Excel xlsx worksheets"""
 
     @staticmethod   # função para obter horário
-    def _data_hora() -> str:
+    def _current_datetime() -> str:
         return str(datetime.now(pytz.timezone("Brazil/East")))
 
     def __init__(self, sheetname: str, sheetpath: str, actual_place: int):
@@ -31,10 +35,11 @@ class SheetXlsx:
         self.sheet = load_workbook(sheetpath)
         self.worksheet = self.sheet.active
         self.actual_place = actual_place
-        self.date = self._data_hora()
+        self.date = self._current_datetime()
         self.values_add = None
         self.produto = None
         self.valor = None
+        self.ultimo_valor = None
         self.link = None
         self.info = None
 
@@ -46,8 +51,9 @@ class SheetXlsx:
         """
         self.produto = self.worksheet[f"A{self.actual_place}"].value
         self.valor = self.worksheet[f"B{self.actual_place}"].value
+        self.ultimo_valor = self.worksheet[f"G{self.actual_place}"].value
         self.link = self.worksheet[f"C{self.actual_place}"].value
-        self.info = [self.produto, self.valor, self.link]
+        self.info = [self.produto, self.valor, self.ultimo_valor, self.link]
         return self.info
 
     def post_info(self, value_add: list):
@@ -59,15 +65,14 @@ class SheetXlsx:
         if len(value_add) == 2:
             self.worksheet[f"D{self.actual_place}"] = value_add[0]
             self.worksheet[f"E{self.actual_place}"] = value_add[1]
-            self.worksheet[f"F{self.actual_place}"] = self._data_hora()
+            self.worksheet[f"F{self.actual_place}"] = self._current_datetime()
 
             self.sheet.save(f"{self.sheetname}.xlsx")
             print("Worksheet has been saved")
 
 
 class FirebaseAPI:
-    """ Class for operations with Firebase
-    """
+    """ Class for operations with Firebase"""
 
     def __init__(self, endpoint: str):
         """__init__ Set up the URL of Firebase Realtime Database
@@ -148,8 +153,7 @@ class FirebaseAPI:
 
 
 class TwilioAPI:
-    """ class for operations with Twilio SMS API
-    """
+    """ class for operations with Twilio SMS API"""
     def __init__(self, account_sid: str, auth_token: str):
         """__init__ Set the account sid and authenticantion token
 
@@ -181,8 +185,7 @@ class TwilioAPI:
 
 
 class GroqCloud:
-    """ class for operations with Groq Cloud
-    """
+    """ class for operations with Groq Cloud"""
     def __init__(self, job: str, criativity=0, model="llama3-8b-8192"):
         """__init__ Defines initial information to run the requests
 
