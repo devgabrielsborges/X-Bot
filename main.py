@@ -27,14 +27,8 @@ if None not in wb.get_info():
 
         load_dotenv()
 
-        prompt_msg = (
-            f"Você é um estrategista em posts de tweets sobre promoções imperdíveis."
-            f"Faça um texto curto e eficaz para vender {wb.produto}. Custa {wb.valor}."
-            f"O texto deve ser próprio para tweets e deve trazer a ideia de urgência"
-            f"para que os usuários se interessem pelo produto."
-            f"Lembrando que vendemos produtos de terceiros, não são produtos nossos."
-            f"Texto em português do Brasil. Até 280 caracteres"
-        )
+        with open('prompt.txt', 'r', encoding='UTF8') as prompt:
+            prompt_msg = prompt.read().format(wb.produto, wb.valor)
 
         groq_chat = GroqCloud(
             "You're especialist at sales and marketing and post sales promotions",
