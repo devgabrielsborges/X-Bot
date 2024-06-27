@@ -5,10 +5,8 @@ TODO: Create AuxBot class -> Define methods and propertys
 
 """
 
-import json
 from datetime import datetime
 import pytz
-import requests
 from twilio.rest import Client
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
@@ -44,87 +42,6 @@ class Product:
         """
         self.info = [self.produto, self.valor, self.ultimo_valor, self.link]
         return self.info
-
-
-class FirebaseAPI:
-    """ Class for operations with Firebase"""
-
-    def __init__(self, endpoint: str):
-        """__init__ Set up the URL of Firebase Realtime Database
-
-        Args:
-            endpoint (str): URL of Realtime Database
-        """
-        self.endpoint = endpoint
-
-    def get_data(self, page: str = '') -> dict:
-        """get_data getter method for data in Realtime Database
-
-        Args:
-            page (str, optional): URL of an especific page to get the data.
-            Defaults to '' if you want get data from the main page
-
-        Returns:
-            _type_: dict
-        """
-        if page != '':
-            request = requests.get(
-                f'{self.endpoint}/{page}/.json',
-                timeout=10
-            )
-
-        else:
-            request = requests.get(
-                f'{self.endpoint}/.json',
-                timeout=10
-            )
-
-        return request.json()
-
-    def post_data(self, page='', info=''):
-        """post_data setter method for data in Realtime Database
-
-        Args:
-            page (str, optional): URL of an especific page to get the data.
-            Defaults to '' if you want get data from the main page
-
-            info (str, optional): data to post. Defaults to ''.
-        """
-        if page != '' and info != '':
-            requests.post(
-                f'{self.endpoint}/{page}/.json',
-                data=json.dumps(info),
-                timeout=10
-            )
-
-        elif info != '':
-            requests.post(
-                f'{self.endpoint}/.json',
-                data=json.dumps(info),
-                timeout=10
-            )
-
-    def patch_data(self, page='', info=''):
-        """patch_data Patch data in Realtime Database
-
-        Args:
-            page (str, optional): URL of an especific page to get the data.
-            Defaults to '' if you want get data from the main page
-
-            info (str, optional): data to post. Defaults to ''.
-        """
-        if page != '' and info != '':
-            requests.patch(
-                f'{self.endpoint}/{page}/.json',
-                data=json.dumps(info),
-                timeout=10
-            )
-        elif info != '':
-            requests.patch(
-                f'{self.endpoint}/.json',
-                data=json.dumps(info),
-                timeout=10
-            )
 
 
 class TwilioAPI:

@@ -11,23 +11,30 @@ registered with Twilio, containing a customizable message
 import os
 import tweepy
 from dotenv import load_dotenv
-from classes import Product, FirebaseAPI, TwilioAPI, GroqCloud
+import firebase_admin
+from firebase_admin import db, credentials
+from classes import Product, TwilioAPI, GroqCloud
 
-db = FirebaseAPI('https://x-bot-borges-default-rtdb.firebaseio.com/')
-PAGE = 'actual_index'
-index = int(db.get_data(PAGE))   # Gets index
+# auth to firebase
+
+cred = credentials.Certificate('fire_credentials.json')
+firebase_admin.initialize_app(
+    cred,
+    {'databaseURL': 'https://x-bot-borges-default-rtdb.firebaseio.com'}
+)
+index = db.reference('/actual_index').get()
 print(f'Index: {index}\n')
 
 item = Product(
-    db.get_data(f'/itens/{index}/Produto'),
-    db.get_data(f'/itens/{index}/Valor'),
-    db.get_data(f'/itens/{index}/Ultimo_valor'),
-    db.get_data(f'/itens/{index}/Link')
+    db.reference(f'/itens/{index}/Produto').get(),
+    db.reference(f'/itens/{index}/Valor').get(),
+    db.reference(f'/itens/{index}/Ultimo_valor').get(),
+    db.reference(f'/itens/{index}/Link').get()
 )
 
 if None not in item.set_info():
     if item.info[2] >= item.info[1]:
-        db.patch_data(f'/itens/{index}', {'Data': item.date})
+        db.reference(f'/itens/{index}').update({'Data': item.date})
     print(item.date)
 
     load_dotenv()
@@ -54,15 +61,15 @@ if None not in item.set_info():
         )
 
     xbot.create_tweet(text=tweet_body)
-    db.patch_data(f'/itens/{index}', {'Mensagem': tweet_body})
+    db.reference(f'/itens/{index}').update({'Mensagem': tweet_body})
 
     new_sms = TwilioAPI(os.getenv('TWILIO_SID'), os.getenv('TWILIO_TOKEN'))
     sms_body = (
         f"Acabei de postar!\nProduto: "
         f"{item.info[0]}\nValor: {item.info[1]}\n Link {item.info[3]}"
         )
-
-    db.patch_data(info={'actual_index': index + 1})
+    db.reference(f'/itens/{index}').update({'Postado': True})
+    db.reference('/').update({'actual_index': index + 1})
     new_sms.send_sms(os.getenv('NUMBER_FROM'), os.getenv('NUMBER_TO'), sms_body)
 else:
     try:
