@@ -38,6 +38,7 @@ jobs:
           X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
+          echo "${{ secrets.FIRE_CREDENTIALS }}" > $fire_credentials.json
           python main.py
           echo 'OK'
 
