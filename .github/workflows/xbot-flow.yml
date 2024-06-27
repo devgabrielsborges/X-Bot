@@ -38,7 +38,8 @@ jobs:
           X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
-          echo "${{ secrets.FIRE_CREDENTIALS }}" > $HOME/fire_credentials.json
+          echo "${{ secrets.FIRE_CREDENTIALS }}" > $GITHUB_WORKSPACE/fire_credentials.json
+          ls
           python main.py
           echo 'OK'
 
