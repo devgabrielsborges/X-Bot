@@ -9,66 +9,41 @@ import json
 from datetime import datetime
 import pytz
 import requests
-
-from openpyxl import load_workbook
 from twilio.rest import Client
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
 
 
-class SheetXlsx:
-    """ Class for operation with Excel xlsx worksheets"""
-
+class Product:
+    """ Class for storage and manipulate the product data"""
     @staticmethod   # função para obter horário
     def _current_datetime() -> str:
         return str(datetime.now(pytz.timezone("Brazil/East")))
 
-    def __init__(self, sheetname: str, sheetpath: str, actual_place: int):
-        """__init__ _summary_
+    def __init__(self, produto: str, valor: float, ultimo_valor: float, link: str):
+        """__init__ Inicial information
 
         Args:
-            sheetname (str): Name of sheet for future operations and saving
-            sheetpath (str): Path of the archive
-            actual_place (int): Index for operations with the cells
+            produto (str): Product name
+            valor (float): Price
+            ultimo_valor (float): Last price
+            link (str): Link
         """
-        self.sheetname = sheetname
-        self.sheet = load_workbook(sheetpath)
-        self.worksheet = self.sheet.active
-        self.actual_place = actual_place
+        self.produto = produto
+        self.valor = valor
+        self.ultimo_valor = ultimo_valor
+        self.link = link
         self.date = self._current_datetime()
-        self.values_add = None
-        self.produto = None
-        self.valor = None
-        self.ultimo_valor = None
-        self.link = None
         self.info = None
 
-    def get_info(self) -> list:
-        """get_info -> Get information from cells
+    def set_info(self) -> dict:
+        """set_info for future operations
 
         Returns:
-            list: List with information about the product
+            dict: [str, float, float, link]
         """
-        self.produto = self.worksheet[f"A{self.actual_place}"].value
-        self.valor = self.worksheet[f"B{self.actual_place}"].value
-        self.ultimo_valor = self.worksheet[f"G{self.actual_place}"].value
-        self.link = self.worksheet[f"C{self.actual_place}"].value
         self.info = [self.produto, self.valor, self.ultimo_valor, self.link]
         return self.info
-
-    def post_info(self, value_add: list):
-        """post_info -> Add informations to the cells
-
-        Args:
-            value_add (list): [status_message, product_message]
-        """
-        if len(value_add) == 2:
-            self.worksheet[f"D{self.actual_place}"] = value_add[0]
-            self.worksheet[f"E{self.actual_place}"] = value_add[1]
-            self.worksheet[f"F{self.actual_place}"] = self._current_datetime()
-
-            self.sheet.save(f"{self.sheetname}.xlsx")
-            print("Worksheet has been saved")
 
 
 class FirebaseAPI:
