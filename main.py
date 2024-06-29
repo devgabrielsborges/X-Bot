@@ -74,8 +74,8 @@ if None not in item.set_info():
 else:
     try:
         print(
-            f"None not in product info? -> {None not in item.info()}",
-            f"Last price <= Actual price? -> {item.info[2] >= item.info[1]}"
+            f"None in product info? -> {None in item.info}\n",
+            f"Info: {item.info}"
         )
     except Exception as error:
         raise error
