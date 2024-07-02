@@ -1,40 +1,40 @@
 # X-Bot: Twitter Automation Bot
 
-## Descrição
-X-Bot é um bot de automação para o Twitter, que publica tweets sobre promoções usando dados armazenados no Firebase, gera textos com IA via Groq Cloud, e envia notificações via SMS com a API Twilio.
+## Description
+X-Bot is a Twitter automation bot that posts promotional tweets using data stored in Firebase, generates text with AI via Groq Cloud, and sends notifications via SMS with the Twilio API.
 
-## Funcionalidades
-- Obtém o índice atual para a postagem.
-- Busca informações do produto no Firebase.
-- Gera texto promocional usando Groq Cloud.
-- Publica o texto no Twitter.
-- Atualiza o Firebase com o status da postagem.
-- Envia notificação SMS via Twilio.
+## Features
+- Retrieves the current index for the post.
+- Fetches product information from Firebase.
+- Generates promotional text using Groq Cloud.
+- Posts the text on Twitter.
+- Updates Firebase with the post status.
+- Sends SMS notifications via Twilio.
 
-## Pré-requisitos
+## Prerequisites
 - Python 3.8+
-- Conta no Firebase
-- Conta no Twilio
-- Conta no Groq Cloud
-- Conta de Desenvolvedor no Twitter
+- Firebase account
+- Twilio account
+- Groq Cloud account
+- Twitter Developer account
 
-## Instalação
-1. Clone o repositório:
+## Installation
+1. Clone the repository:
     ```bash
     git clone https://github.com/devgabrielsborges/X-Bot.git
     cd X-Bot
     ```
-2. Crie e ative um ambiente virtual:
+2. Create and activate a virtual environment:
     ```bash
     python -m venv venv
-    source venv/bin/activate  # Para Linux/MacOS
-    venv\Scripts\activate  # Para Windows
+    source venv/bin/activate  # For Linux/MacOS
+    venv\Scripts\activate  # For Windows
     ```
-3. Instale as dependências:
+3. Install the dependencies:
     ```bash
     pip install -r requirements.txt
     ```
-4. Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+4. Create a `.env` file in the root directory with the following variables:
     ```env
     x_apikey=YOUR_TWITTER_API_KEY
     x_apisecret=YOUR_TWITTER_API_SECRET
@@ -49,38 +49,38 @@ X-Bot é um bot de automação para o Twitter, que publica tweets sobre promoç�
     firebase_db_url=YOUR_FIREBASE_DB_URL
     ```
 
-## Executando o Bot
-1. Certifique-se de que o índice inicial está corretamente definido no Firebase sob `actual_index`.
-2. Execute o script principal:
+## Running the Bot
+1. Ensure the initial index is correctly set in Firebase under `actual_index`.
+2. Run the main script:
     ```bash
     python main.py
     ```
 
-## Estrutura de Arquivos
-- `classes.py`: Contém todas as classes auxiliares e métodos usados pelo script principal.
-  - `FirebaseAPI`: Classe para operações com o Firebase.
-  - `TwilioAPI`: Classe para operações com a API Twilio.
-  - `GroqCloud`: Classe para operações com o Groq Cloud.
-  - `Product`: Classe que representa o produto e suas informações.
-- `main.py`: Script principal que executa toda a automação.
+## File Structure
+- `classes.py`: Contains all auxiliary classes and methods used by the main script.
+  - `FirebaseAPI`: Class for Firebase operations.
+  - `TwilioAPI`: Class for Twilio API operations.
+  - `GroqCloud`: Class for Groq Cloud operations.
+  - `Product`: Class representing the product and its information.
+- `main.py`: Main script that runs the complete automation.
 
-## Dependências
-- `firebase-admin`: Interação com o Firebase.
-- `pytz`: Manipulação de fuso horário.
-- `requests`: Requisições HTTP.
-- `tweepy`: Interação com a API do Twitter.
-- `python-dotenv`: Carregamento de variáveis de ambiente de um arquivo `.env`.
-- `twilio`: Envio de SMS via Twilio.
-- `langchain_core` e `langchain_groq`: Integração com o Groq Cloud.
+## Dependencies
+- `firebase-admin`: For interacting with Firebase.
+- `pytz`: For timezone manipulation.
+- `requests`: For HTTP requests.
+- `tweepy`: For interacting with the Twitter API.
+- `python-dotenv`: For loading environment variables from a `.env` file.
+- `twilio`: For sending SMS via Twilio.
+- `langchain_core` and `langchain_groq`: For integration with Groq Cloud.
 
-## Licença
-Este projeto é licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-## Contribuição
-1. Faça um fork do projeto.
-2. Crie um novo branch (`git checkout -b feature/novo-recurso`).
-3. Commit suas alterações (`git commit -am 'Adiciona novo recurso'`).
-4. Push para o branch (`git push origin feature/novo-recurso`).
-5. Crie um novo Pull Request.
+## Contributing
+1. Fork the project.
+2. Create a new branch (`git checkout -b feature/new-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/new-feature`).
+5. Create a new Pull Request.
 
-Para dúvidas ou problemas, abra uma issue neste repositório.
+For questions or issues, please open an issue in this repository.
