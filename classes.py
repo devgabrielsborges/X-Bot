@@ -6,7 +6,7 @@ TODO: Create AuxBot class -> Define methods and propertys
 """
 
 from datetime import datetime
-import pytz
+from pytz import timezone
 from twilio.rest import Client
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_groq import ChatGroq
@@ -16,7 +16,7 @@ class Product:
     """ Class for storage and manipulate the product data"""
     @staticmethod   # função para obter horário
     def _current_datetime() -> str:
-        return str(datetime.now(pytz.timezone("Brazil/East")))
+        return str(datetime.now(timezone("Brazil/East")))
 
     def __init__(self, produto: str, valor: float, ultimo_valor: float, link: str):
         """__init__ Inicial information
