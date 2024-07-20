@@ -2,8 +2,10 @@ name: Xbot Flow
 
 on:
   schedule:
-    - cron: "42 11 * * *"
+    - cron: "00 00 * * *"
     - cron: "46 14 * * *"
+    - cron: "46 19 * * *"
+    - cron: "46 21 * * *"
   workflow_dispatch:
 
 permissions:
@@ -40,7 +42,5 @@ jobs:
         run: |
           echo "${{ secrets.FIRE_CREDENTIALS }}" | base64 --decode > $GITHUB_WORKSPACE/fire_credentials.json
           python main.py
-          echo 'OK'
-
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
