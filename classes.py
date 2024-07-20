@@ -1,9 +1,4 @@
-"""
-Classes & methods for main script
-
-TODO: Create AuxBot class -> Define methods and propertys
-
-"""
+"""Classes & methods for main script"""
 
 from datetime import datetime
 from pytz import timezone
@@ -14,7 +9,7 @@ from langchain_groq import ChatGroq
 
 class Product:
     """ Class for storage and manipulate the product data"""
-    @staticmethod   # função para obter horário
+    @staticmethod   # function to get the current datetime
     def _current_datetime() -> str:
         return str(datetime.now(timezone("Brazil/East")))
 
@@ -86,9 +81,9 @@ class GroqCloud:
             criativity (int, optional): Temperature parameter. Defaults to 0.
             model (str, optional): Model. Defaults to "llama3-8b-8192".
         """
-        self.job = job    # informações prévias para o modelo
+        self.job = job    # previous information for the model
         self.criativity = criativity   # temperature
-        self.model = model   # tipo de modelo
+        self.model = model   # model type
         self.prompt = ChatPromptTemplate.from_messages(
             [("system", f"{self.job}"), ("human", "{text}")]
         )

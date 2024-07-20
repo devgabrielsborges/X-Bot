@@ -20,7 +20,7 @@ from classes import Product, TwilioAPI, GroqCloud
 cred = credentials.Certificate('fire_credentials.json')
 firebase_admin.initialize_app(
     cred,
-    {'databaseURL': 'https://x-bot-borges-default-rtdb.firebaseio.com'}
+    {'databaseURL': os.getenv('FIREBASE_URL')}
 )
 index = db.reference('/actual_index').get()
 print(f'Index: {index}\n')
