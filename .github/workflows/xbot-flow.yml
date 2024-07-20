@@ -29,6 +29,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Run main
         env:
+          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
           TWILIO_SID: ${{ secrets.TWILIO_SID }}
           TWILIO_TOKEN: ${{ secrets.TWILIO_TOKEN }}
           NUMBER_FROM: ${{ secrets.NUMBER_FROM }}
