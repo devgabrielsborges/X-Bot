@@ -29,7 +29,7 @@ class Product:
         self.date = self._current_datetime()
         self.info = None
 
-    def set_info(self) -> dict:
+    def list_info(self) -> dict:
         """set_info for future operations
 
         Returns:

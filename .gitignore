@@ -1,10 +1,6 @@
-testes.py
-implements.py
 credentials.json
-token.json
+fire_credentials.json
 __pycache__
 .env
-tests.py
-xbot
-auxbot.py
-fire_credentials.json
+.idea
+.venv
