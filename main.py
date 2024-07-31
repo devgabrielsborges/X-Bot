@@ -10,7 +10,7 @@ registered with Twilio, containing a customizable message
 
 from cli import Xbot
 
-xbot = Xbot(112)
+xbot = Xbot()
 xbot.set_tweet_body()
 xbot.post_tweet()
 xbot.send_sms()
