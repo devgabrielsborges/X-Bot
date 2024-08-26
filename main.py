@@ -13,4 +13,4 @@ from cli import Xbot
 xbot = Xbot()
 xbot.set_tweet_body()
 xbot.post_tweet()
-xbot.send_sms()
+# xbot.send_sms()
