@@ -37,7 +37,7 @@ class Xbot:
         if not firebase_admin._apps:
             firebase_admin.initialize_app(
                 self.credentials,
-                {'databaseURL': os.getenv('FIREBASE_DATABASE_URL')}
+                {'databaseURL': os.getenv('FIREBASE_URL')}
             )
 
         if index is None:
