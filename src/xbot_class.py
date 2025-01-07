@@ -13,7 +13,7 @@ class Xbot:
         """
         Set the credentials for the firebase connection.
         """
-        cred = credentials.Certificate('fire_credentials.json')
+        cred = credentials.Certificate('credentials.json')
         return cred
 
     @staticmethod
