@@ -13,7 +13,12 @@ class Xbot:
         """
         Set the credentials for the firebase connection.
         """
-        cred = credentials.Certificate('credentials.json')
+        try:
+            cred = credentials.Certificate('credentials.json')
+        except FileNotFoundError:
+            print("'credentials.json' not found")
+            exit(1)
+
         return cred
 
     @staticmethod
