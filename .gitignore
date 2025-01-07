@@ -4,4 +4,3 @@ __pycache__
 .env
 .idea
 .venv
-cli.py
