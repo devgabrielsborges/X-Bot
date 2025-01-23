@@ -50,8 +50,8 @@ class TwilioAPI:
         """
         self.account_sid = account_sid
         self.auth_token = auth_token
-        self.client = None
-        self.sid = None
+        self.client: Client | None = None
+        self.sid: str = ''
 
     def send_sms(self, from_number: str, to_number: str, msg: str):
         """send_sms _summary_
@@ -67,13 +67,12 @@ class TwilioAPI:
             from_=from_number,
             body=msg
         )
-        self.sid = message.sid
-        print(message.sid)
+        self.sid: str = message.sid
 
 
 class GroqCloud:
     """ class for operations with Groq Cloud"""
-    def __init__(self, job: str, criativity=0, model="llama3-8b-8192"):
+    def __init__(self, job: str, criativity: float = 0.0, model: str = "llama3-8b-8192"):
         """__init__ Defines initial information to run the requests
 
         Args:
@@ -91,8 +90,8 @@ class GroqCloud:
             temperature=self.criativity,
             model_name=f"{self.model}"
         )
-        self.response = None
-        self.chain = None
+        self.response: str | None = None
+        self.chain: self.chain | self.prompt | None = None
 
     def request(self, msg: str) -> str:
         """request Send a prompt to Groq Cloud
