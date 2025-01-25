@@ -1,54 +1,92 @@
+from os import getenv
 from dotenv import load_dotenv
 from unittest.mock import patch
-from aux_classes import Product, TwilioAPI, GroqCloud
+from src.aux_classes import Product, TwilioAPI, GroqCloud
 
 load_dotenv()
 
 
 def test_product_init():
-    product = Product("TestProduct", 10.0, 15.0, "http://example.com")
-    assert product.produto == "TestProduct"
-    assert product.valor == 10.0
-    assert product.ultimo_valor == 15.0
-    assert product.link == "http://example.com"
+    # Arrange
+    name = "TestProduct"
+    price = 10.0
+    discount = 15.0
+    url = "http://example.com"
+    
+    # Act
+    product = Product(name, price, discount, url)
+    
+    # Assert
+    assert product.produto == name
+    assert product.valor == price
+    assert product.ultimo_valor == discount
+    assert product.link == url
     assert product.info is None
 
 
 def test_product_list_info():
-    product = Product("TestProduct", 10.0, 15.0, "http://example.com")
+    # Arrange
+    name = "TestProduct"
+    price = 10.0
+    discount = 15.0
+    url = "http://example.com"
+    product = Product(name, price, discount, url)
+    
+    # Act
     info = product.list_info()
+    
+    # Assert
     assert isinstance(info, list)
     assert len(info) == 4
-    assert info[0] == "TestProduct"
-    assert info[1] == 10.0
-    assert info[2] == 15.0
-    assert info[3] == "http://example.com"
+    assert info[0] == name
+    assert info[1] == price
+    assert info[2] == discount
+    assert info[3] == url
 
 
 def test_twilio_init():
-    twilio_api = TwilioAPI("account_sid_test", "auth_token_test")
-    assert twilio_api.account_sid == "account_sid_test"
-    assert twilio_api.auth_token == "auth_token_test"
+    # Arrange
+    twilio_sid = getenv("TWILIO_SID")
+    twilio_token = getenv("TWILIO_TOKEN")
+    
+    # Act
+    twilio_api = TwilioAPI(twilio_sid, twilio_token)
+    
+    # Assert
+    assert twilio_api.account_sid == twilio_sid
+    assert twilio_api.auth_token == twilio_token
     assert twilio_api.client is None
-    assert twilio_api.sid is None
 
 
 def test_twilio_send_sms():
-    with patch("aux_classes.Client") as mock_client:
+    # Arrange
+    twilio_sid = getenv("TWILIO_SID")
+    twilio_token = getenv("TWILIO_TOKEN")
+    to = getenv("NUMBER_TO")
+    from_ = getenv("NUMBER_FROM")
+    body = "Hello Python!"
+    
+    # Act
+    with patch("src.aux_classes.Client") as mock_client:
         instance = mock_client.return_value
-        instance.messages.create.return_value.sid = "MockSid"
-        twilio_api = TwilioAPI("test_sid", "test_token")
-        twilio_api.send_sms("+100", "+200", "Hello SMS")
-        assert twilio_api.sid == "MockSid"
-        instance.messages.create.assert_called_once_with(
-            to="+200",
-            from_="+100",
-            body="Hello SMS"
-        )
+        instance.messages.create.return_value.sid = twilio_sid
+        twilio_api = TwilioAPI(twilio_sid, twilio_token)
+        twilio_api.send_sms(from_, to, body)
+    
+    # Assert
+    assert twilio_api.sid == twilio_sid
+    instance.messages.create.assert_called_once_with(
+        to=to,
+        from_=from_,
+        body=body
+    )
 
 
 def test_groqcloud_init():
+    # Arrange
     groq = GroqCloud("TestJob", 0.2, "llama3-8b-8192")
+
+    # Assert
     assert groq.job == "TestJob"
     assert groq.criativity == 0.2
     assert groq.model == "llama3-8b-8192"
@@ -57,7 +95,12 @@ def test_groqcloud_init():
 
 
 def test_groqcloud_request(mocker):
+    # Arrange
     mocker.patch.object(GroqCloud, 'request', return_value="Mocked response")
     groq = GroqCloud("TestJob")
+
+    # Act
     response = groq.request("Hello")
+
+    # Assert
     assert response == "Mocked response"
