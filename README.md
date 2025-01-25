@@ -12,7 +12,7 @@ X-Bot is a Twitter automation bot that posts promotional tweets using data store
 - Sends SMS notifications via Twilio.
 
 ## Prerequisites
-- Python 3.8+
+- Python 3.12
 - Firebase account
 - Twilio account
 - Groq Cloud account
@@ -49,29 +49,32 @@ X-Bot is a Twitter automation bot that posts promotional tweets using data store
     firebase_db_url=YOUR_FIREBASE_DB_URL
     ```
 
+## Setting up the Development Container
+1. Ensure you have Docker installed on your machine.
+2. Open the project in Visual Studio Code.
+3. When prompted, reopen the project in the development container.
+4. The container will be built using the configuration in `.devcontainer/devcontainer.json`.
+
+Note: The devcontainer is optional and only for development.
+
 ## Running the Bot
 1. Ensure the initial index is correctly set in Firebase under `actual_index`.
 2. Run the main script:
     ```bash
-    python main.py
+    python src/main.py
     ```
 
 ## File Structure
-- `classes.py`: Contains all auxiliary classes and methods used by the main script.
-  - `FirebaseAPI`: Class for Firebase operations.
+- `src/aux_classes.py`: Contains all auxiliary classes and methods used by the main script.
+  - `Product`: Class representing the product and its information.
   - `TwilioAPI`: Class for Twilio API operations.
   - `GroqCloud`: Class for Groq Cloud operations.
-  - `Product`: Class representing the product and its information.
-- `main.py`: Main script that runs the complete automation.
+- `src/main.py`: Main script that runs the complete automation.
+- `src/xbot_class.py`: Contains the main class `Xbot` which handles the overall bot operations.
+- `src/cli.py`: Command-line interface for interacting with the bot.
 
 ## Dependencies
-- `firebase-admin`: For interacting with Firebase.
-- `pytz`: For timezone manipulation.
-- `requests`: For HTTP requests.
-- `tweepy`: For interacting with the Twitter API.
-- `python-dotenv`: For loading environment variables from a `.env` file.
-- `twilio`: For sending SMS via Twilio.
-- `langchain_core` and `langchain_groq`: For integration with Groq Cloud.
+All dependencies are present in `requirements.txt`.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
