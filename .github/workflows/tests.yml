@@ -43,4 +43,4 @@ jobs:
           X_TOKEN: ${{ secrets.X_TOKEN }}
           X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-        run: pytest
+        run: pytest src
