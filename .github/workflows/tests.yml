@@ -26,21 +26,26 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest-mock
+          pip install flake8 pytest pytest-mock
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Set environment variables
+        run: |
+          echo "FIREBASE_URL=${{ secrets.FIREBASE_URL }}" >> $GITHUB_ENV
+          echo "TWILIO_SID=${{ secrets.TWILIO_SID }}" >> $GITHUB_ENV
+          echo "TWILIO_TOKEN=${{ secrets.TWILIO_TOKEN }}" >> $GITHUB_ENV
+          echo "NUMBER_FROM=${{ secrets.NUMBER_FROM }}" >> $GITHUB_ENV
+          echo "NUMBER_TO=${{ secrets.NUMBER_TO }}" >> $GITHUB_ENV
+          echo "X_BEARERTOKEN=${{ secrets.X_BEARERTOKEN }}" >> $GITHUB_ENV
+          echo "X_APIKEY=${{ secrets.X_APIKEY }}" >> $GITHUB_ENV
+          echo "X_APISECRET=${{ secrets.X_APISECRET }}" >> $GITHUB_ENV
+          echo "X_TOKEN=${{ secrets.X_TOKEN }}" >> $GITHUB_ENV
+          echo "X_TOKENSECRET=${{ secrets.X_TOKENSECRET }}" >> $GITHUB_ENV
+          echo "GROQ_API_KEY=${{ secrets.GROQ_API_KEY }}" >> $GITHUB_ENV
       - name: Create credentials.json
+        env:
+          FIRE_CREDENTIALS: ${{ secrets.FIRE_CREDENTIALS }}
         run: echo "${{ secrets.FIRE_CREDENTIALS }}" | base64 --decode > $GITHUB_WORKSPACE/credentials.json
       - name: Run tests
         env:
-          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
-          TWILIO_SID: ${{ secrets.TWILIO_SID }}
-          TWILIO_TOKEN: ${{ secrets.TWILIO_TOKEN }}
-          NUMBER_FROM: ${{ secrets.NUMBER_FROM }}
-          NUMBER_TO: ${{ secrets.NUMBER_TO }}
-          X_BEARERTOKEN: ${{ secrets.X_BEARERTOKEN }}
-          X_APIKEY: ${{ secrets.X_APIKEY }}
-          X_APISECRET: ${{ secrets.X_APISECRET }}
-          X_TOKEN: ${{ secrets.X_TOKEN }}
-          X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          PYTHONPATH: ${{ github.workspace }}/src
         run: pytest src
