@@ -28,8 +28,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install pytest-mock
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)/src" >> $GITHUB_ENV
       - name: Create credentials.json
         run: echo "${{ secrets.FIRE_CREDENTIALS }}" | base64 --decode > $GITHUB_WORKSPACE/credentials.json
       - name: Run tests
