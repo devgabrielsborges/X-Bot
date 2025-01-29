@@ -1,7 +1,7 @@
 from os import getenv
 from dotenv import load_dotenv
 from unittest.mock import patch
-from src.aux_classes import Product, TwilioAPI, GroqCloud
+from aux_classes import Product, TwilioAPI, GroqCloud
 
 load_dotenv()
 
