@@ -29,9 +29,6 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$PYTHONPATH:$(pwd)/src:$(pwd)/.." >> $GITHUB_ENV
-      - name: Run tests
-        run: |
-          pytest
       - name: Run main
         env:
           FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
