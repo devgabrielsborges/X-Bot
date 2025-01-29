@@ -1,5 +1,6 @@
 import sys
-from xbot_class import Xbot
+from .xbot_class import Xbot
+
 
 def main():
     # Use the first CLI argument as an index if available, otherwise default to 0
