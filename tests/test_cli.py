@@ -1,7 +1,7 @@
 import sys
 import pytest
 from unittest.mock import patch, MagicMock
-from src.cli import main
+from cli import main
 
 
 def test_cli_no_args():
