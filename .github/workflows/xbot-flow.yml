@@ -40,7 +40,7 @@ jobs:
           X_TOKENSECRET: ${{ secrets.X_TOKENSECRET }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
-          cd src | echo "${{ secrets.FIRE_CREDENTIALS }}" | base64 --decode > credentials.json
-          python main.py
+          echo "${{ secrets.FIRE_CREDENTIALS }}" | base64 --decode > $GITHUB_WORKSPACE/credentials.json
+          python src/main.py
       - name: Commit and Push
         uses: stefanzweifel/git-auto-commit-action@v5
