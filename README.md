@@ -1,7 +1,7 @@
 # X-Bot: Twitter Automation Bot
 
 ## Description
-X-Bot is a Twitter automation bot that posts promotional tweets using data stored in Firebase, generates text with AI via Groq Cloud, and sends notifications via SMS with the Twilio API.
+X-Bot is a Twitter/X automation bot that posts promotional tweets using data stored in Firebase, generates text with AI via Groq Cloud, and sends notifications via SMS with the Twilio API.
 
 ## Features
 - Retrieves the current index for the post.
