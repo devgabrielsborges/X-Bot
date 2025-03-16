@@ -1,0 +1,32 @@
+[project]
+name = "x-bot"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "devgabrielsborges",email = "dev.gabrielsborges@proton.me"}
+]
+readme = "README.md"
+requires-python = ">=3.10,<4.0"
+dependencies = [
+    "pytz (>=2025.1,<2026.0)",
+    "twilio (>=9.5.0,<10.0.0)",
+    "langchain-core (>=0.3.45,<0.4.0)",
+    "langchain-groq (>=0.2.5,<0.3.0)",
+    "tweepy (>=4.15.0,<5.0.0)",
+    "python-dotenv (>=1.0.1,<2.0.0)",
+    "firebase-admin (>=6.7.0,<7.0.0)",
+    "pytest (>=8.3.5,<9.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "x_bot", from = "src"}]
+
+[tool.poetry.scripts]
+xbot = "x_bot.main:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest-mock = "^3.14.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
