@@ -13,6 +13,7 @@ X-Bot is a Twitter/X automation bot that posts promotional tweets using data sto
 
 ## Prerequisites
 - Python 3.12
+- Poetry (Python dependency management)
 - Firebase account
 - Twilio account
 - Groq Cloud account
@@ -24,17 +25,18 @@ X-Bot is a Twitter/X automation bot that posts promotional tweets using data sto
     git clone https://github.com/devgabrielsborges/X-Bot.git
     cd X-Bot
     ```
-2. Create and activate a virtual environment:
+2. Install dependencies with Poetry:
     ```bash
-    python -m venv venv
-    source venv/bin/activate  # For Linux/MacOS
-    venv\Scripts\activate  # For Windows
+    # Install Poetry if you don't have it
+    curl -sSL https://install.python-poetry.org | python3 -
+    
+    # Install dependencies
+    poetry install
+    
+    # Activate the virtual environment
+    poetry shell
     ```
-3. Install the dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
-4. Create a `.env` file in the root directory with the following variables:
+3. Create a `.env` file in the root directory with the following variables:
     ```env
     x_apikey=YOUR_TWITTER_API_KEY
     x_apisecret=YOUR_TWITTER_API_SECRET
@@ -61,6 +63,10 @@ Note: The devcontainer is optional and only for development.
 1. Ensure the initial index is correctly set in Firebase under `actual_index`.
 2. Run the main script:
     ```bash
+    # Make sure you're in the Poetry environment
+    poetry run xbot
+    
+    # Or if you've already activated the environment with 'poetry shell'
     python src/main.py
     ```
 
@@ -74,7 +80,7 @@ Note: The devcontainer is optional and only for development.
 - `src/cli.py`: Command-line interface for interacting with the bot.
 
 ## Dependencies
-All dependencies are present in `requirements.txt`.
+All dependencies are managed using Poetry and defined in `pyproject.toml`.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
