@@ -1,7 +1,7 @@
 import sys
 import pytest
 from unittest.mock import patch, MagicMock
-from src.cli import main
+from src.x_bot.cli import main
 
 
 def test_cli_no_args():
@@ -13,7 +13,7 @@ def test_cli_no_args():
 
     # Act
     with patch.object(sys, "argv", test_args):
-        with patch("src.cli.Xbot") as mock_xbot:
+        with patch("src.x_bot.cli.Xbot") as mock_xbot:
             result = main()
 
     # Assert
@@ -35,7 +35,7 @@ def test_cli_with_valid_index():
 
     # Act
     with patch.object(sys, "argv", test_args):
-        with patch("src.cli.Xbot", return_value=mock_xbot_instance) as mock_xbot:
+        with patch("src.x_bot.cli.Xbot", return_value=mock_xbot_instance) as mock_xbot:
             main()
 
     # Assert
@@ -71,7 +71,7 @@ def test_cli_with_negative_index():
 
     # Act
     with patch.object(sys, "argv", test_args):
-        with patch("src.cli.Xbot", return_value=mock_xbot_instance) as mock_xbot:
+        with patch("src.x_bot.cli.Xbot", return_value=mock_xbot_instance) as mock_xbot:
             main()
 
     # Assert
@@ -89,7 +89,7 @@ def test_cli_xbot_raises_exception():
 
     # Create a mock Xbot that raises an exception
     with patch.object(sys, "argv", test_args):
-        with patch("src.cli.Xbot", side_effect=Exception("Test Exception")):
+        with patch("src.x_bot.cli.Xbot", side_effect=Exception("Test Exception")):
             # Act & Assert
             with pytest.raises(Exception) as exc_info:
                 main()
@@ -100,5 +100,5 @@ def test_cli_main_guard():
     """
     Test that main() is not executed when cli.py is imported.
     """
-    with patch("src.cli.main") as mock_main:
+    with patch("src.x_bot.cli.main") as mock_main:
         mock_main.assert_not_called()

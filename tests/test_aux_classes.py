@@ -1,7 +1,7 @@
 from os import getenv
 from dotenv import load_dotenv
 from unittest.mock import patch
-from src.aux_classes import Product, TwilioAPI, GroqCloud
+from src.x_bot.aux_classes import Product, TwilioAPI, GroqCloud
 
 load_dotenv()
 
@@ -67,7 +67,7 @@ def test_twilio_send_sms():
     body = "Hello Python!"
     
     # Act
-    with patch("src.aux_classes.Client") as mock_client:
+    with patch("src.x_bot.aux_classes.Client") as mock_client:
         instance = mock_client.return_value
         instance.messages.create.return_value.sid = twilio_sid
         twilio_api = TwilioAPI(twilio_sid, twilio_token)
