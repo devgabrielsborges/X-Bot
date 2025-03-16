@@ -3,7 +3,7 @@ import tweepy
 from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import db, credentials
-from aux_classes import Product, TwilioAPI, GroqCloud
+from .aux_classes import Product, TwilioAPI, GroqCloud
 
 
 class Xbot:
