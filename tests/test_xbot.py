@@ -1,4 +1,4 @@
-from src.x_bot.xbot_class import Xbot
+from src.x_bot.xbot import Xbot
 from firebase_admin import credentials
 
 
