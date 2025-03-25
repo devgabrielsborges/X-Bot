@@ -4,17 +4,17 @@
 X-Bot is a Twitter/X automation bot that posts promotional tweets using data stored in Firebase, generates text with AI via Groq Cloud, and sends notifications via SMS with the Twilio API.
 
 ## Features
-- Retrieves the current index for the post.
-- Fetches product information from Firebase.
-- Generates promotional text using Groq Cloud.
-- Posts the text on Twitter.
-- Updates Firebase with the post status.
-- Sends SMS notifications via Twilio.
+- Retrieves the current index for the post
+- Fetches product information from Firebase
+- Generates promotional text using Groq Cloud's AI models
+- Posts the text on Twitter/X
+- Updates Firebase with the post status
+- Sends SMS notifications via Twilio
 
 ## Prerequisites
 - Python 3.12
 - Poetry (Python dependency management)
-- Firebase account
+- Firebase account and credentials.json file
 - Twilio account
 - Groq Cloud account
 - Twitter Developer account
@@ -38,58 +38,44 @@ X-Bot is a Twitter/X automation bot that posts promotional tweets using data sto
     ```
 3. Create a `.env` file in the root directory with the following variables:
     ```env
-    x_apikey=YOUR_TWITTER_API_KEY
-    x_apisecret=YOUR_TWITTER_API_SECRET
-    x_token=YOUR_TWITTER_ACCESS_TOKEN
-    x_tokensecret=YOUR_TWITTER_ACCESS_TOKEN_SECRET
-    x_bearertoken=YOUR_TWITTER_BEARER_TOKEN
-    twilio_sid=YOUR_TWILIO_SID
-    twilio_token=YOUR_TWILIO_AUTH_TOKEN
-    number_from=YOUR_TWILIO_PHONE_NUMBER
-    number_to=YOUR_PHONE_NUMBER
-    firebase_api_key=YOUR_FIREBASE_API_KEY
-    firebase_db_url=YOUR_FIREBASE_DB_URL
+    FIREBASE_URL=YOUR_FIREBASE_DB_URL
+    TWILIO_SID=YOUR_TWILIO_SID
+    TWILIO_TOKEN=YOUR_TWILIO_AUTH_TOKEN
+    NUMBER_FROM=YOUR_TWILIO_PHONE_NUMBER
+    NUMBER_TO=YOUR_PHONE_NUMBER
+    X_BEARERTOKEN=YOUR_TWITTER_BEARER_TOKEN
+    X_APIKEY=YOUR_TWITTER_API_KEY
+    X_APISECRET=YOUR_TWITTER_API_SECRET
+    X_TOKEN=YOUR_TWITTER_ACCESS_TOKEN
+    X_TOKENSECRET=YOUR_TWITTER_ACCESS_TOKEN_SECRET
+    GROQ_API_KEY=YOUR_GROQ_API_KEY
     ```
 
-## Setting up the Development Container
-1. Ensure you have Docker installed on your machine.
-2. Open the project in Visual Studio Code.
-3. When prompted, reopen the project in the development container.
-4. The container will be built using the configuration in `.devcontainer/devcontainer.json`.
-
-Note: The devcontainer is optional and only for development.
+4. Place your Firebase [credentials.json](http://_vscodecontentref_/0) file in the project root directory.
 
 ## Running the Bot
 1. Ensure the initial index is correctly set in Firebase under `actual_index`.
 2. Run the main script:
     ```bash
-    # Make sure you're in the Poetry environment
+    # Using Poetry script
     poetry run xbot
     
     # Or if you've already activated the environment with 'poetry shell'
-    python src/main.py
+    xbot
     ```
 
-## File Structure
-- `src/aux_classes.py`: Contains all auxiliary classes and methods used by the main script.
-  - `Product`: Class representing the product and its information.
-  - `TwilioAPI`: Class for Twilio API operations.
-  - `GroqCloud`: Class for Groq Cloud operations.
-- `src/main.py`: Main script that runs the complete automation.
-- `src/xbot_class.py`: Contains the main class `Xbot` which handles the overall bot operations.
-- `src/cli.py`: Command-line interface for interacting with the bot.
+3. Run with a specific item index (using CLI):
+    ```bash
+    poetry run python -m src.x_bot.cli 3
+    ```
 
-## Dependencies
-All dependencies are managed using Poetry and defined in `pyproject.toml`.
+## Running Tests
+```bash
+# Run all tests
+poetry run pytest
 
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+# Run specific test file
+poetry run pytest tests/test_product.py
 
-## Contributing
-1. Fork the project.
-2. Create a new branch (`git checkout -b feature/new-feature`).
-3. Commit your changes (`git commit -am 'Add new feature'`).
-4. Push to the branch (`git push origin feature/new-feature`).
-5. Create a new Pull Request.
-
-For questions or issues, please open an issue in this repository.
+# Run with verbose output
+poetry run pytest -v
