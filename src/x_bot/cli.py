@@ -1,5 +1,5 @@
 import sys
-from .xbot_class import Xbot
+from .xbot import Xbot
 
 
 def main():

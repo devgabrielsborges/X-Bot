@@ -8,7 +8,7 @@ posted Finally, the bot prepares to send an SMS to the phone number you have
 registered with Twilio, containing a customizable message
 """
 
-from .xbot_class import Xbot
+from .xbot import Xbot
 
 
 def main():
