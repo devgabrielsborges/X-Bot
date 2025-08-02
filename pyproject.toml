@@ -1,32 +1,15 @@
 [project]
 name = "x-bot"
 version = "0.1.0"
-description = ""
-authors = [
-    {name = "devgabrielsborges",email = "dev.gabrielsborges@proton.me"}
-]
+description = "X-Bot is a Twitter/X automation bot that posts promotional tweets using data stored in Firebase, generates text with AI via Groq Cloud, and sends notifications via SMS with the Twilio API."
 readme = "README.md"
-requires-python = ">=3.10,<4.0"
+requires-python = ">=3.10"
 dependencies = [
-    "pytz (>=2025.1,<2026.0)",
-    "twilio (>=9.5.0,<10.0.0)",
-    "langchain-core (>=0.3.45,<0.4.0)",
-    "langchain-groq (>=0.2.5,<0.3.0)",
-    "tweepy (>=4.15.0,<5.0.0)",
-    "python-dotenv (>=1.0.1,<2.0.0)",
-    "firebase-admin (>=6.7.0,<7.0.0)",
-    "pytest (>=8.3.5,<9.0.0)"
+    "firebase-admin>=7.1.0",
+    "langchain-core>=0.3.72",
+    "langchain-groq>=0.3.6",
+    "python-dotenv>=1.1.1",
+    "pytz>=2025.2",
+    "tweepy>=4.16.0",
+    "twilio>=9.7.0",
 ]
-
-[tool.poetry]
-packages = [{include = "x_bot", from = "src"}]
-
-[tool.poetry.scripts]
-xbot = "x_bot.main:main"
-
-[tool.poetry.group.dev.dependencies]
-pytest-mock = "^3.14.0"
-
-[build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
