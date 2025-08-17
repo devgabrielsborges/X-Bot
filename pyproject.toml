@@ -13,3 +13,6 @@ dependencies = [
     "tweepy>=4.16.0",
     "twilio>=9.7.0",
 ]
+
+[project.scripts]
+xbot = "x_bot.main:main"
